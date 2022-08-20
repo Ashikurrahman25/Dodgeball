@@ -10,7 +10,6 @@ public class BallThrower : MonoBehaviour
     public Transform cam;
     public Transform attackPoint;
     public GameObject objectToThrow;
-    public Transform debugTransform;
 
     [Header("Settings")]
     //public int totalThrows;
@@ -28,16 +27,16 @@ public class BallThrower : MonoBehaviour
 
     private void Awake()
     {
-        leftMouseClick = new InputAction(binding: "<Mouse>/leftButton");
-        leftMouseClick.performed += ctx => LeftMouseClicked();
-        leftMouseClick.Enable();
+        //leftMouseClick = new InputAction(binding: "<Mouse>/leftButton");
+        //leftMouseClick.performed += ctx => LeftMouseClicked();
+        //leftMouseClick.Enable();
 
     }
     
     private void LeftMouseClicked()
     {
         print("LeftMouseClicked");
-        Throw();
+        //Throw();
     }
 
     public void Throw()
@@ -45,10 +44,7 @@ public class BallThrower : MonoBehaviour
         // instantiate object to throw
 
         Vector3 forceDirection = Vector3.zero;
-       
-
-
-
+      
         Ray ray = cam.GetComponent<Camera>().ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
 
 
@@ -58,7 +54,6 @@ public class BallThrower : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~IgnoreMe))
         {
-            debugTransform.position = hit.point;
             forceDirection = (hit.point - attackPoint.position).normalized;
         }
 

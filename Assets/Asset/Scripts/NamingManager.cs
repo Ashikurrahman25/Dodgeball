@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
 //using Photon.Pun;
 
 public class NamingManager : MonoBehaviour
@@ -15,7 +16,7 @@ public class NamingManager : MonoBehaviour
         {
             userName.text = PlayerPrefs.GetString("UserName", "");
             userNameInput.text = PlayerPrefs.GetString("UserName", "");
-            //PhotonNetwork.NickName = userName.text;
+            PhotonNetwork.NickName = userName.text;
             namePopup.SetActive(false);
 
         }
@@ -30,7 +31,7 @@ public class NamingManager : MonoBehaviour
         if (!string.IsNullOrEmpty(userNameInput.text))
         {
             userName.text = userNameInput.text;
-            //PhotonNetwork.NickName = userNameInput.text;
+            PhotonNetwork.NickName = userNameInput.text;
             PlayerPrefs.SetString("UserName", userNameInput.text);
         }
         else

@@ -43,6 +43,12 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnFire()
+        {
+			GetComponent<BallThrower>().Throw();
+        }
+
 #endif
 
 
