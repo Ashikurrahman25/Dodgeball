@@ -167,7 +167,6 @@ GameObject:
   - component: {fileID: 6608921138744220829}
   - component: {fileID: 440339814918052951}
   - component: {fileID: 440339814918052950}
-  - component: {fileID: 7709047528470951597}
   - component: {fileID: 4229506317585219617}
   - component: {fileID: 440339814918052945}
   - component: {fileID: 4274044019798174273}
@@ -178,6 +177,7 @@ GameObject:
   - component: {fileID: 7588331048334446858}
   - component: {fileID: 6730484220709112265}
   - component: {fileID: 440339814918052956}
+  - component: {fileID: -6509434279706757964}
   m_Layer: 9
   m_Name: PlayerGoat
   m_TagString: Player
@@ -192,8 +192,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440339814918052957}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 4.75, y: -1.49, z: -1.2503175}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5254149969951270145}
@@ -204,7 +204,7 @@ Transform:
   - {fileID: 1816516655558171063}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6608921138744220829
 Animator:
   serializedVersion: 3
@@ -286,23 +286,6 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
---- !u!114 &7709047528470951597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 440339814918052957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909d917d73a63f940ac158d02e936645, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pushLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  canPush: 0
-  strength: 1.1
 --- !u!114 &4229506317585219617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +416,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 6608921138744220829}
+  disqualified: 0
+  freeze: 0
+  dizzy: 0
 --- !u!114 &4274044019798174334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,12 +434,14 @@ MonoBehaviour:
   cam: {fileID: 0}
   attackPoint: {fileID: 3199652649177279992}
   objectToThrow: {fileID: 5892132452817777273, guid: 227b19273a8ea5f41ba3980edb14c42c, type: 3}
+  totalThrows: 0
   throwCooldown: 0
   throwForce: 25
   throwUpwardForce: 0
   IgnoreMe:
     serializedVersion: 2
     m_Bits: 128
+  projectile: {fileID: 0}
 --- !u!114 &1433333165351395239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,6 +456,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 5254149969951270150}
   playerNameCanvas: {fileID: 3388491944677151527}
+  teamAColor: {r: 0.15294118, g: 1, b: 0, a: 1}
+  teamBColor: {r: 1, g: 0.55423945, b: 0, a: 1}
 --- !u!114 &2423381175529572695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,6 +512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   animator: {fileID: 6608921138744220829}
+  disqualified: 0
 --- !u!114 &6730484220709112265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,13 +529,13 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Death
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Jump
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Running
   m_SynchronizeLayers:
   - SynchronizeType: 2
@@ -557,11 +548,23 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440339814918052957}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.61105686, y: 0.9305458, z: 1.0208365}
   m_Center: {x: 0.006945461, y: 0.45492482, z: 0.12501734}
+--- !u!114 &-6509434279706757964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440339814918052957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c788f9573a2d34e86040f7b579bdbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &509002166859187854
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,7 +1451,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3199652649177279975}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: -0, y: 0.5, z: 1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 961437251375892199}

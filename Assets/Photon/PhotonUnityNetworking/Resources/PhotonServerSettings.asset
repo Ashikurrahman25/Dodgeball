@@ -46,6 +46,15 @@ MonoBehaviour:
   - LoadScene
   - UnloadScene
   - IncreasePassCount
+  - ActivateBall
+  - ClaimBall
+  - MakeClaimable
+  - DoDisQualify
+  - RemoveTransform
+  - Remove
+  - DoFreeze
+  - DoDizzy
+  - AddForce
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

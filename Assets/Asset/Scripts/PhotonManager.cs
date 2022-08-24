@@ -292,7 +292,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             RoomOptions newRoom = new RoomOptions()
             {
-                MaxPlayers = (byte)maxPlayer
+                MaxPlayers = (byte)maxPlayer,
+                CleanupCacheOnLeave = false
             };
             PhotonNetwork.CreateRoom(roomName.text, newRoom);
         }
@@ -305,6 +306,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             RoomOptions room = new RoomOptions();
             room.MaxPlayers = (byte)maxPlayer;
+            room.CleanupCacheOnLeave = false;
             PhotonNetwork.JoinOrCreateRoom(roomName.text, room,TypedLobby.Default);
         }
         else

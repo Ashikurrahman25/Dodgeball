@@ -1,3 +1,5 @@
+using DG.Tweening;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +14,7 @@ public class BallThrower : MonoBehaviour
     public GameObject objectToThrow;
 
     [Header("Settings")]
-    //public int totalThrows;
+    public int totalThrows;
     public float throwCooldown;
 
 
@@ -24,6 +26,7 @@ public class BallThrower : MonoBehaviour
 
     //bool readyToThrow;
     private InputAction leftMouseClick;
+    public GameObject projectile;
 
     private void Awake()
     {
@@ -42,7 +45,11 @@ public class BallThrower : MonoBehaviour
     public void Throw()
     {
         // instantiate object to throw
-
+        if(totalThrows <= 0)
+        {
+            Debug.Log("No throws");
+            return;
+        }
         Vector3 forceDirection = Vector3.zero;
       
         Ray ray = cam.GetComponent<Camera>().ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
@@ -55,17 +62,31 @@ public class BallThrower : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~IgnoreMe))
         {
             forceDirection = (hit.point - attackPoint.position).normalized;
+
+                Debug.Log(hit.transform.name);
+            if (hit.transform.GetComponent<EnemyView>())
+            {
+                Debug.Log("Enemyyyy");
+                string team = PhotonNetwork.LocalPlayer.CustomProperties["Team"].Equals("A") ? "B" : "A";
+                //projectile.GetComponent<BallView>().DamagePlayer(hit.transform.GetComponent<EnemyView>(), team, hit.transform.GetComponent<PhotonView>().ViewID);
+            }
         }
 
-        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, Quaternion.LookRotation(forceDirection, Vector3.up));
+        //GameObject projectile = Instantiate(objectToThrow, attackPoint.position, Quaternion.LookRotation(forceDirection, Vector3.up));
 
-        // get rigidbody component
-        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+        projectile.transform.DOMove(attackPoint.position, .1f).OnComplete(() => {
+           
+            projectile.transform.rotation = Quaternion.LookRotation(forceDirection, Vector3.up);
+            Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
 
-        // add force
-        Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+            projectile.GetComponent<BallView>().ActivateRPC();
+            Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+            projectileRb.velocity = projectile.transform.forward * throwForce;
+            totalThrows--;
+            projectile = null;
 
-        projectileRb.velocity = projectile.transform.forward * throwForce;
+        }) ;
+       
     }
 
     private void ResetThrow()

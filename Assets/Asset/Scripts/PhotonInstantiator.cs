@@ -5,9 +5,16 @@ using UnityEngine;
 
 public class PhotonInstantiator : MonoBehaviour
 {
+    public int ballsToInstantiate;
+    public List<string> balls = new List<string>();
 
     public List<Transform> instantiatePlayerA = new List<Transform>();
     public List<Transform> instantiatePlayerB = new List<Transform>();
+
+    public List<Transform> instantiateBallA = new List<Transform>();
+    public List<Transform> instantiateBallB = new List<Transform>();
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,11 +46,19 @@ public class PhotonInstantiator : MonoBehaviour
 
 
         PhotonNetwork.Instantiate(player, position, rotation);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            InstantiateBall();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void InstantiateBall()
     {
-        
+        for (int i = 0; i < ballsToInstantiate; i++)
+        {
+            PhotonNetwork.Instantiate($"Balls/{balls[Random.Range(0, balls.Count)]}", instantiateBallA[i].position, Quaternion.identity);
+            PhotonNetwork.Instantiate($"Balls/{balls[Random.Range(0, balls.Count)]}", instantiateBallB[i].position, Quaternion.identity);
+        }
     }
 }
