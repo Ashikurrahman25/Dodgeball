@@ -22,11 +22,14 @@ public class PlayerInitializer : MonoBehaviour, IPunInstantiateMagicCallback
 
         //GetComponent<PlayerController>().enabled = info.photonView.IsMine;
 
+        
+
         if (!GetComponent<PhotonView>().IsMine)
         {
             if (info.photonView.Owner.CustomProperties["Team"].ToString().Equals(PhotonNetwork.LocalPlayer.CustomProperties["Team"].ToString()))
             {
                 gameObject.layer = 10;
+                GameManager.instance.players.Add(GetComponent<PlayerController>());
             }
             else
             {
@@ -42,6 +45,8 @@ public class PlayerInitializer : MonoBehaviour, IPunInstantiateMagicCallback
 
                 Destroy(GetComponent<PlayerInput>());
                 Destroy(GetComponent<BallThrower>());
+                GameManager.instance.enemies.Add(GetComponent<EnemyView>());
+
             }
             playerNameCanvas.GetComponentInChildren<TMP_Text>().color = info.photonView.Owner.CustomProperties["Team"].Equals("A") ? teamAColor : teamBColor;
 
@@ -54,7 +59,9 @@ public class PlayerInitializer : MonoBehaviour, IPunInstantiateMagicCallback
             FindObjectOfType<CinemachineVirtualCamera>().Follow = playerCamera.transform;
             GetComponent<BallThrower>().cam = Camera.main.transform;
             GetComponent<EnemyView>().enabled = false;
+            GameManager.instance.players.Add(GetComponent<PlayerController>());
         }
 
     }
 }
+ 

@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5272083598692657488}
   - component: {fileID: 2692958243347569696}
   - component: {fileID: 4117256476418094894}
-  - component: {fileID: -900764618435671518}
+  - component: {fileID: -3804819028488482136}
   m_Layer: 6
   m_Name: Normal
   m_TagString: Untagged
@@ -179,13 +179,14 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
+  OwnershipTransfer: 1
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: -3804819028488482136}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-900764618435671518
+--- !u!114 &-3804819028488482136
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,10 +195,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4531051210221621099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 3

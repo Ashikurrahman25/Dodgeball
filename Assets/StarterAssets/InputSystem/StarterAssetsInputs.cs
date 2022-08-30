@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -48,6 +49,12 @@ namespace StarterAssets
         {
 			GetComponent<BallThrower>().Throw();
         }
+
+		public void OnCatch()
+		{
+			string team = PhotonNetwork.LocalPlayer.CustomProperties["Team"].ToString();
+			GameManager.instance.CalculateDistance(team,gameObject.transform, GetComponent<BallThrower>());
+		}
 
 #endif
 

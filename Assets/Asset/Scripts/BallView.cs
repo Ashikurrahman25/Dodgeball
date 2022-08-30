@@ -12,6 +12,11 @@ public class BallView : MonoBehaviour
     public bool canClaim = false;
     public bool doDamage = false;
 
+    private void OnEnable()
+    {
+        GameManager.instance.balls.Add(this);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
 
@@ -66,7 +71,7 @@ public class BallView : MonoBehaviour
             canDamageB = false;
         }
         canClaim = false;
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
         gameObject.GetComponent<Collider>().enabled = false;
         gameObject.GetComponent<Rigidbody>().useGravity = false;
     }
@@ -75,7 +80,7 @@ public class BallView : MonoBehaviour
     public void ActivateBall()
     {
         gameObject.GetComponent<Collider>().enabled = true;
-        gameObject.SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(true);
         doDamage = true;
 
     }

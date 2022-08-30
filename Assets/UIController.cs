@@ -4,13 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class UIController : MonoBehaviour
+public class UIController : MonoBehaviourPunCallbacks
 {
     public static UIController instance;
     public GameObject disqualifyPanel;
     public GameObject freezePanel;
     public GameObject dizzyPanel;
+    public GameObject gameWonPanel;
+    public GameObject gameLostPanel;
     public TMP_Text freezeText;
     public TMP_Text dizzyText;
     public float freezeTimer;
@@ -21,6 +24,9 @@ public class UIController : MonoBehaviour
     public bool showedDisInfo;
     public bool startDizzy;
     int transformIndex = 0;
+
+    public TMP_Text[] ballCount;
+
     public List<Transform> disqualifiedTransformA = new List<Transform>();
     public List<Transform> disqualifiedTransformB = new List<Transform>();
     Action acFreeze;
@@ -31,6 +37,9 @@ public class UIController : MonoBehaviour
     {
         if (instance == null) instance = this;
         else Destroy(this);
+
+        ResetBallCount();
+
     }
 
     private void Update()
@@ -116,5 +125,57 @@ public class UIController : MonoBehaviour
             disqualifiedTransformB.RemoveAt(transformIndex);
         }
         
+    }
+
+    public void LoadMenu()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void ShowGameOver(string team)
+    {
+        string playerTeam = PhotonNetwork.LocalPlayer.CustomProperties["Team"].ToString();
+
+        if (playerTeam.Equals(team))
+            gameLostPanel.SetActive(true);
+        else
+            gameWonPanel.SetActive(true);
+    }
+
+    public void ShowBallCount(BallView.BallType type)
+    {
+        ResetBallCount();
+        switch (type)
+        {
+            case BallView.BallType.Normal:
+                ballCount[0].text = "x1";
+                break;
+            case BallView.BallType.Ice:
+                ballCount[1].text = "x1";
+                break;
+            case BallView.BallType.Fire:
+                ballCount[2].text = "x1";
+                break;
+            case BallView.BallType.Rainbow:
+                ballCount[3].text = "x1";
+                break;
+            case BallView.BallType.Green:
+                ballCount[4].text = "x1";
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void ResetBallCount()
+    {
+        for (int i = 0; i < ballCount.Length; i++)
+        {
+            ballCount[i].text = "x0";
+        }
     }
 }

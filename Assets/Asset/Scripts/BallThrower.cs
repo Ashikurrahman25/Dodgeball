@@ -75,22 +75,34 @@ public class BallThrower : MonoBehaviour
         //GameObject projectile = Instantiate(objectToThrow, attackPoint.position, Quaternion.LookRotation(forceDirection, Vector3.up));
 
         projectile.transform.DOMove(attackPoint.position, .1f).OnComplete(() => {
-           
+
+            float doubleForce = throwForce * 2;
             projectile.transform.rotation = Quaternion.LookRotation(forceDirection, Vector3.up);
             Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
 
             projectile.GetComponent<BallView>().ActivateRPC();
-            Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
-            projectileRb.velocity = projectile.transform.forward * throwForce;
+
+            if(projectile.GetComponent<BallView>().ballType == BallView.BallType.Green)
+                projectileRb.velocity = projectile.transform.forward * throwForce*2;
+            else
+                projectileRb.velocity = projectile.transform.forward * throwForce;
+            
             totalThrows--;
             projectile = null;
+            UIController.instance.ResetBallCount();
 
         }) ;
        
     }
 
-    private void ResetThrow()
+    public void ClaimBall(BallView ball)
     {
-        //readyToThrow = true;
+        if (totalThrows > 0 || !ball.canClaim) return;
+
+        totalThrows = 1;
+        projectile = ball.gameObject;
+
+        string team = PhotonNetwork.LocalPlayer.CustomProperties["Team"].ToString();
+        ball.ClaimRPC(team);
     }
 }

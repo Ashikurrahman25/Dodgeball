@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4238158243872421030}
   - component: {fileID: 1255714368837266419}
   - component: {fileID: 15781799731124307}
-  - component: {fileID: 4403299755941627010}
+  - component: {fileID: -8784306970682604877}
   m_Layer: 6
   m_Name: Rainbow
   m_TagString: Untagged
@@ -179,13 +179,14 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
+  OwnershipTransfer: 1
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: -8784306970682604877}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &4403299755941627010
+--- !u!114 &-8784306970682604877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,10 +195,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8983652742712845000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 3

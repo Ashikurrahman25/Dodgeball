@@ -76,7 +76,7 @@ public class EnemyView : MonoBehaviour
         if(other.gameObject.layer == 6)
         {
             BallView ball = other.gameObject.GetComponent<BallView>();
-
+            ball.GetComponent<PhotonView>().RequestOwnership();
             if (!ball.doDamage && GetComponent<PhotonView>().OwnerActorNr == PhotonNetwork.LocalPlayer.ActorNumber)
             {
                 BallThrower ballView = GetComponent<BallThrower>();
@@ -89,13 +89,13 @@ public class EnemyView : MonoBehaviour
                 string team = PhotonNetwork.LocalPlayer.CustomProperties["Team"].ToString();
                 ball.ClaimRPC(team);
                 Debug.Log("Claiming Ball");
+                UIController.instance.ShowBallCount(ball.ballType);
 
             }
-            else
+            else if(ball.doDamage)
             {
                 string team =  ball.canDamageA ? "A" : "B";
                 ball.DamagePlayer(this, team, GetComponent<PhotonView>().ViewID);
-
                 Debug.Log("Damaging");
             }
         }

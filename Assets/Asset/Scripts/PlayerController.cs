@@ -32,6 +32,10 @@ public class PlayerController : MonoBehaviour
             UIController.instance.ShowDisqualifey();
             transform.DOMove(UIController.instance.DisqualifyTransform().position,1f);
             GetComponent<PhotonView>().RPC("Remove", RpcTarget.All, PhotonNetwork.LocalPlayer.CustomProperties["Team"].ToString());
+
+            if(GameManager.instance.AllDisqualified())
+                GetComponent<PhotonView>().RPC("GameOver", RpcTarget.All, PhotonNetwork.LocalPlayer.CustomProperties["Team"].ToString());
+
             EnableOrDisablePlayer(false);
 
         }

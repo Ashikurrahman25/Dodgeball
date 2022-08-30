@@ -29,7 +29,7 @@ public class ManualSync : MonoBehaviour, IPunObservable
 
 
 
-    private void FixedUpdate()
+    private void Update()
     {
 
         if (!photonView.IsMine)
@@ -50,6 +50,7 @@ public class ManualSync : MonoBehaviour, IPunObservable
             //should send position, velocity etc. data to the other players
             stream.SendNext(player.position);
             stream.SendNext(player.rotation);
+            stream.SendNext(player.useGravity);
 
             if (synchronizeVelocity)
             {
@@ -66,7 +67,7 @@ public class ManualSync : MonoBehaviour, IPunObservable
             //Called on my player gameobject that exists in remote player's game
             networkedPosition = (Vector3)stream.ReceiveNext();
             networkedRotation = (Quaternion)stream.ReceiveNext();
-
+            player.useGravity = (bool)stream.ReceiveNext();
 
             if (isTeleportEnabled)
             {

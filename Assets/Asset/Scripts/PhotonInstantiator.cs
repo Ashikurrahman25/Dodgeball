@@ -14,12 +14,32 @@ public class PhotonInstantiator : MonoBehaviour
     public List<Transform> instantiateBallA = new List<Transform>();
     public List<Transform> instantiateBallB = new List<Transform>();
 
+    public GameObject localPlayer;
 
+    public static PhotonInstantiator instance;
+
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        else Destroy(this);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         InstantiatePlayer();
+    }
+
+    public Transform GetRandom(string team)
+    {
+        Transform _transform = null;
+        
+        if(team.Equals("A"))
+            _transform = instantiatePlayerA[UnityEngine.Random.Range(0, instantiatePlayerA.Count)];
+        else if (team.Equals("B"))
+            _transform = instantiatePlayerB[UnityEngine.Random.Range(0, instantiatePlayerB.Count)];
+
+        return _transform;
     }
 
     public void InstantiatePlayer()
@@ -45,7 +65,7 @@ public class PhotonInstantiator : MonoBehaviour
         }
 
 
-        PhotonNetwork.Instantiate(player, position, rotation);
+        localPlayer = PhotonNetwork.Instantiate(player, position, rotation);
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -57,8 +77,8 @@ public class PhotonInstantiator : MonoBehaviour
     {
         for (int i = 0; i < ballsToInstantiate; i++)
         {
-            PhotonNetwork.Instantiate($"Balls/{balls[Random.Range(0, balls.Count)]}", instantiateBallA[i].position, Quaternion.identity);
-            PhotonNetwork.Instantiate($"Balls/{balls[Random.Range(0, balls.Count)]}", instantiateBallB[i].position, Quaternion.identity);
+            GameObject ballA = PhotonNetwork.Instantiate($"Balls/{balls[Random.Range(0, balls.Count)]}", instantiateBallA[i].position, Quaternion.identity);
+            GameObject ballB = PhotonNetwork.Instantiate($"Balls/{balls[Random.Range(0, balls.Count)]}", instantiateBallB[i].position, Quaternion.identity);
         }
     }
 }

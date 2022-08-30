@@ -39,16 +39,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        if (!PhotonNetwork.IsConnectedAndReady)
-        {
-            loadingPanel.SetActive(true);
-            PhotonNetwork.AutomaticallySyncScene = true;
-            PhotonNetwork.ConnectUsingSettings();
-        }
-        else
-        {
-            PhotonNetwork.LeaveLobby();
-        }
+        loadingPanel.SetActive(true);
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.ConnectUsingSettings();
     }
     public override void OnConnectedToMaster()
     {
