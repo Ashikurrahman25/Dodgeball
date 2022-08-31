@@ -20,15 +20,17 @@ public class BallView : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        GetComponent<PhotonView>().RPC("MakeClaimable", RpcTarget.All);
         if(collision.gameObject.layer != 9 && collision.gameObject.layer != 8)
         {
-            GetComponent<Rigidbody>().useGravity = true;
+            GetComponent<PhotonView>().RPC("MakeClaimable", RpcTarget.All);
         }
+
+        GetComponent<Rigidbody>().useGravity = true;
+
     }
     //private void (Collider other)
     //{
-        
+
     //}
 
     public void DamagePlayer(EnemyView enemy, string team, int id)

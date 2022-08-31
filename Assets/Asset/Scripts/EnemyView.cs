@@ -68,6 +68,37 @@ public class EnemyView : MonoBehaviour
         Debug.Log("Freezing Player ");
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("AAA " + other.transform.name + ", " + other.gameObject.layer);
+
+        if (other.gameObject.layer == 6)
+        {
+            BallView ball = other.gameObject.GetComponent<BallView>();
+            ball.GetComponent<PhotonView>().RequestOwnership();
+            if (!ball.doDamage && GetComponent<PhotonView>().OwnerActorNr == PhotonNetwork.LocalPlayer.ActorNumber)
+            {
+                BallThrower ballView = GetComponent<BallThrower>();
+
+                if (ballView.totalThrows > 0 || !ball.canClaim) return;
+
+                ballView.totalThrows = 1;
+                ballView.projectile = other.gameObject;
+
+                string team = PhotonNetwork.LocalPlayer.CustomProperties["Team"].ToString();
+                ball.ClaimRPC(team);
+                Debug.Log("Claiming Ball");
+                UIController.instance.ShowBallCount(ball.ballType);
+
+            }
+            else if (ball.doDamage)
+            {
+                string team = ball.canDamageA ? "A" : "B";
+                ball.DamagePlayer(this, team, GetComponent<PhotonView>().ViewID);
+                Debug.Log("Damaging");
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
