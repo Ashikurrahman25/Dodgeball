@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15868,16 +15868,44 @@ MonoBehaviour:
   levelHolder: {fileID: 6894937336429922323}
   instantiatedPlayers: []
   levels:
-  - levelName: Dungeon
-    sceneName: Game
+  - levelName: Level 1
+    sceneName: Level 1
     levelSprite: {fileID: 0}
     isSelected: 1
-  - levelName: Dungeon 2
-    sceneName: Game 1
+  - levelName: Level 2
+    sceneName: Level 2
     levelSprite: {fileID: 0}
     isSelected: 0
-  - levelName: Dungeon 3
-    sceneName: Game 2
+  - levelName: Level 3
+    sceneName: Level 3
+    levelSprite: {fileID: 0}
+    isSelected: 0
+  - levelName: Level 4
+    sceneName: Level 4
+    levelSprite: {fileID: 0}
+    isSelected: 0
+  - levelName: Level 5
+    sceneName: Level 5
+    levelSprite: {fileID: 0}
+    isSelected: 0
+  - levelName: Level 6
+    sceneName: Level 6
+    levelSprite: {fileID: 0}
+    isSelected: 0
+  - levelName: Level 7
+    sceneName: Level 7
+    levelSprite: {fileID: 0}
+    isSelected: 0
+  - levelName: Level 8
+    sceneName: Level 8
+    levelSprite: {fileID: 0}
+    isSelected: 0
+  - levelName: Level 9
+    sceneName: Level 9
+    levelSprite: {fileID: 0}
+    isSelected: 0
+  - levelName: Level 10
+    sceneName: Level 10
     levelSprite: {fileID: 0}
     isSelected: 0
 --- !u!1 &1080354702
