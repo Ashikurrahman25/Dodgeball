@@ -593,7 +593,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 126883760}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 162470097940476361}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &126883760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15851,9 +15863,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedLevel: 0
-  levelView: {fileID: 0}
-  selectedLevelText: {fileID: 0}
-  levelHolder: {fileID: 0}
+  levelView: {fileID: 3369699398571618955, guid: f8961498e1603e54b95e3f1c4b8a1faf, type: 3}
+  selectedLevelText: {fileID: 222358955}
+  levelHolder: {fileID: 6894937336429922323}
   instantiatedPlayers: []
   levels:
   - levelName: Dungeon
@@ -43320,7 +43332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9c7a1bcd8882e4e905f1f2f4f7452a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainContent: {fileID: 0}
+  mainContent: {fileID: 3290357911933012540}
 --- !u!1 &171675015270480307
 GameObject:
   m_ObjectHideFlags: 0
@@ -44051,7 +44063,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162470097940476361}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6415012967210257573}
@@ -46143,18 +46155,6 @@ MonoBehaviour:
       - m_Target: {fileID: 162470097940476362}
         m_TargetAssemblyTypeName: PanelAnim, Assembly-CSharp
         m_MethodName: DestroySelf
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
