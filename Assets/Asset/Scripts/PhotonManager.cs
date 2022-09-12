@@ -275,7 +275,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //if (PhotonNetwork.IsMasterClient)
         //    PhotonNetwork.CurrentRoom.IsOpen = false;
 
-        PhotonNetwork.LoadLevel("Game");
+        PhotonNetwork.LoadLevel(PlayerPrefs.GetString("Level","Game"));
     }
     
     public void CreateRoom()
