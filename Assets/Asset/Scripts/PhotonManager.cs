@@ -45,10 +45,26 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
     public override void OnConnectedToMaster()
     {
-        loadingPanel.SetActive(false);
+        if (PhotonNetwork.CloudRegion.Trim().Contains("eu"))
+            loadingPanel.SetActive(false);
+        else
+        {
+            PhotonNetwork.Disconnect();
+            StartCoroutine(DelayConnect());
+        }
+
+
+        Debug.Log(PhotonNetwork.CloudRegion);
         Debug.Log("Connected to master");
     }
 
+
+    IEnumerator DelayConnect()
+    {
+        yield return new WaitForSeconds(1f);
+        PhotonNetwork.ConnectToRegion("eu");
+        Debug.Log("Connecting to eu");
+    }
     public void JoinLobby()
     {
         if (PhotonNetwork.IsConnected)
@@ -249,47 +265,53 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             UpdatePlayerCount();
         });
 
-        //if (PhotonNetwork.PlayerList.Length >= 2)
-        //{
-        //    startButton.SetActive(true);
-        //    countdown.SetActive(true);
-        //    if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        //    {
-        //        ExitGames.Client.Photon.Hashtable customeValue = new ExitGames.Client.Photon.Hashtable();
-        //        startTime = PhotonNetwork.Time;
-        //        startTimer = true;
-        //        customeValue.Add("StartTime", startTime);
-        //        PhotonNetwork.CurrentRoom.SetCustomProperties(customeValue);
-        //    }
-        //    else
-        //    {
-        //        startTime = double.Parse(PhotonNetwork.CurrentRoom.CustomProperties["StartTime"].ToString());
-        //        startTimer = true;
-        //    }
-        //}
+        if (PhotonNetwork.PlayerList.Length >= 2)
+        {
+            startButton.SetActive(true);
+            countdown.SetActive(true);
+            if (PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                ExitGames.Client.Photon.Hashtable customeValue = new ExitGames.Client.Photon.Hashtable();
+                startTime = PhotonNetwork.Time;
+                startTimer = true;
+                customeValue.Add("StartTime", startTime);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(customeValue);
+            }
+            else
+            {
+                startTime = double.Parse(PhotonNetwork.CurrentRoom.CustomProperties["StartTime"].ToString());
+                startTimer = true;
+            }
+        }
 
     }
 
     public void StartGame()
     {
-        //if (PhotonNetwork.IsMasterClient)
-        //    PhotonNetwork.CurrentRoom.IsOpen = false;
-
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+        startButton.SetActive(false);
         PhotonNetwork.LoadLevel(PlayerPrefs.GetString("Level","Game"));
     }
     
     public void CreateRoom()
     {
         loadingPanel.SetActive(true);
+        string roomNameTxt = "";
+
         if (!string.IsNullOrEmpty(roomName.text))
+            roomNameTxt = roomName.text;
+        else
+            roomNameTxt = "XYZ " + UnityEngine.Random.Range(10000, 100000);
+
+
+
+        RoomOptions newRoom = new RoomOptions()
         {
-            RoomOptions newRoom = new RoomOptions()
-            {
-                MaxPlayers = (byte)maxPlayer,
-                CleanupCacheOnLeave = false
-            };
-            PhotonNetwork.CreateRoom(roomName.text, newRoom);
-        }
+            MaxPlayers = (byte)maxPlayer,
+            CleanupCacheOnLeave = false
+        };
+        PhotonNetwork.CreateRoom(roomNameTxt, newRoom);
 
     }
     public void JoinRoom()
@@ -309,6 +331,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     }
 
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        RoomOptions room = new RoomOptions();
+        room.MaxPlayers = (byte)maxPlayer;
+        room.CleanupCacheOnLeave = false;
+        PhotonNetwork.CreateRoom("XYZ " + UnityEngine.Random.Range(10000, 100000));
+    }
 
     IEnumerator ShowCountdown()
     {
