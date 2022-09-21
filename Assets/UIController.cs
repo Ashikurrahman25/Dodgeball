@@ -1,4 +1,5 @@
 using Photon.Pun;
+using StarterAssets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -144,6 +145,9 @@ public class UIController : MonoBehaviourPunCallbacks
             gameLostPanel.SetActive(true);
         else
             gameWonPanel.SetActive(true);
+
+        PhotonInstantiator.instance.localPlayer.GetComponent<StarterAssetsInputs>().cursorLocked = false;
+
     }
 
     public void ShowBallCount(BallView.BallType type)

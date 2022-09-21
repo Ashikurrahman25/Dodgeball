@@ -53,13 +53,14 @@ public class PhotonInstantiator : MonoBehaviour
         {
              position = instantiatePlayerA[0].position;
              rotation = instantiatePlayerA[0].rotation;
+             //rotation = new Quaternion(0f, 90f, 0f, 0f);
 
             player = "PlayerKoata";
         }
         else
         {
             position = instantiatePlayerB[0].position;
-            rotation = instantiatePlayerB[0].rotation;
+            rotation = new Quaternion(0f, -90f, 0f, 0f);
 
             player = "PlayerGoat";
         }
